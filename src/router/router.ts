@@ -9,6 +9,10 @@ export default class Router {
         const products = new ProductController();
         this.router.get("/products", products.list.bind(products));
         this.router.post("/products", productCreateValidator, products.insert.bind(products));
+
+        this.router.get("/", (req, res) => {
+            res.redirect("/docs");
+        });
     }
 
     public get(): express.Router {

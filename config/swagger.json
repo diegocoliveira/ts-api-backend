@@ -1,0 +1,239 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API de Store",
+    "language": "pt-BR",
+    "description": "Documentação da API de Store gerada automaticamente pelo <b>Swagger-Autogen</b>"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Product",
+      "description": "Endpoints para gerenciar produtos"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Rota para listar os produtos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Product"
+                  }
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "example": [
+                    "aconteceu um erro interno"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "status": {
+                  "type": "number",
+                  "example": 500
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint para inserir um produto",
+        "parameters": [
+          {
+            "name": "",
+            "in": "body",
+            "description": "Dados do produto",
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          },
+          {
+            "name": "errors",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Product"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 201
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Criado"
+          },
+          "422": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductValidator"
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "example": [
+                    "aconteceu um erro interno"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "status": {
+                  "type": "number",
+                  "example": 500
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "2aef4c18-aa1f-40f0-8e07-3d0faadca799"
+        },
+        "name": {
+          "type": "string",
+          "example": "Tênis Mizuno Wave Titan 2"
+        },
+        "price": {
+          "type": "number",
+          "example": 227.99
+        },
+        "category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "c0ff9a32-c444-4d28-a0e0-f1dedadfd619"
+            },
+            "name": {
+              "type": "string",
+              "example": "Tênis"
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-03-30T12:41:16.775Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2023-03-30T12:41:16.775Z"
+        }
+      }
+    },
+    "AddProduct": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Tênis Mizuno Wave Titan 2"
+        },
+        "price": {
+          "type": "number",
+          "example": 227.99
+        },
+        "category": {
+          "type": "string",
+          "example": "c0ff9a32-c444-4d28-a0e0-f1dedadfd619"
+        }
+      }
+    },
+    "ProductValidator": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "example": [
+            "[name] - type is required",
+            "[price] - type is required",
+            "[category] - type is required"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "number",
+          "example": 422
+        }
+      }
+    }
+  }
+}

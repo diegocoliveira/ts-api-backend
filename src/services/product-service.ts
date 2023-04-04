@@ -8,6 +8,7 @@ export default class ProductService {
 
     async insert(product: IProduct): Promise<IResult<IProduct>> {
         const pool = await Postgres.pool();
+        
         let result: IResult<IProduct> = { errors: [], status: 200 };
         try {
             result = await this.repository.insert(pool, product);

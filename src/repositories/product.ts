@@ -17,7 +17,7 @@ export default class Product {
                     price: queryResult.rows[0].price,
                     category: queryResult.rows[0].category_id,
                     createdAt: queryResult.rows[0].created_at,
-                    updatedAt: queryResult.rows[0].updated_at
+                    updatedAt: queryResult.rows[0].updated_at,
                 };
             }
         } catch (error: any) {
@@ -30,15 +30,16 @@ export default class Product {
     async list(pool: pg.Pool): Promise<IResult<IProduct[]>> {
         const iresult: IResult<IProduct[]> = { errors: [], status: 200 };
         try {
-            const query = `SELECT product.id, product.name, product.category_id, category.name as category_name,
+            const query = `SELECT product.id, product.name, product.category_id,
+                                  category.name as category_name,
                                   price, product.created_at, product.updated_at
-                             FROM store.product,
-                                  store.category 
+                            FROM store.product,
+                                 store.category 
                             WHERE 
-                                category.id = product.category_id
+                            category.id = product.category_id
                             AND product.deleted_at IS NULL`;
             const queryResult = await pool.query(query);
-            //console.log("QueryResult", queryResult.rows);
+
             //iresult.data = queryResult.rows;
             iresult.data = [];
             for (let i = 0; i < queryResult.rows.length; i++) {

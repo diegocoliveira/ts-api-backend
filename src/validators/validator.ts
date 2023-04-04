@@ -1,5 +1,6 @@
 import { validate, version } from "uuid";
 export default class Validator {
+    
     public static string(field: string, data: any, minLength?: number, maxLength?: number): string[] {
         let errors: string[] = [];
 
